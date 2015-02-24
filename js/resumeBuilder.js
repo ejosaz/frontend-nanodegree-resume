@@ -1,33 +1,95 @@
-var name = "Elías Azcona";
-var role = "Telematic Engineer";
-
-
-//var formattedRole = HTMLheaderRole.replace("%data%",role);
-//var formattedName = HTMLheaderName.replace("%data%",name);
 
 var bio = { 
-	"name" : name,
-	"role" : role,
+	"name" : "Elias Azcona",
+	"role" : "Engineer",
 	"contacts" : {
 		"mobile":"829-766-7032",
-		"email" : "john@example.com",
+		"email" : "ejosaz1@gmail.com",
 		"github": "ejosaz",
+		"twitter": "ejosaz",
 		"location":" Santiago"
 	},
 	"welcomeMessage": "Life is about Simplicity",
-	"skills": ["player", "sleeper","go ahead"],
-	"biopic" : "images/fry.jpg"
-}
+	"skills": ["Player", "Sleeper","Hardwork", "Dreamer"],
+	"bioPic" : "images/rosalina.png"
+};
 
-var work = {};
-work.position = "System Analyst";
-work.employer = "WIND";
-work.years = "0.3"
+var name = bio.name;
+var formattedName = HTMLheaderName.replace("%data%",name);
 
-var projects = {};
-projects.name = "Unificacion de Laboratorios";
-projects.year = 2014;
-projects.members = "Elias Azcona & Jomil Pena"
+
+var role = bio.role;
+var formattedRole = HTMLheaderRole.replace("%data%",role);
+
+$("#header").prepend(formattedRole);
+$("#header").prepend(formattedName);
+
+
+var mobile = bio.contacts.mobile;
+var formattedMobile = HTMLmobile.replace("%data%", mobile);
+$("#topContacts").append(formattedMobile);
+
+var email = bio.contacts.email;
+var formattedEmail = HTMLemail.replace("%data%", email);
+$("#topContacts").append(formattedEmail);
+
+var github = bio.contacts.github;
+var formattedGithub = HTMLgithub.replace("%data%", github);
+$("#topContacts").append(formattedGithub);
+
+var twitter = bio.contacts.twitter;
+var formattedTwitter = HTMLtwitter.replace("%data%", twitter);
+$("#topContacts").append(formattedTwitter);
+
+var _location = bio.contacts.location;
+var formattedLocation = HTMLlocation.replace("%data%", _location);
+$("#topContacts").append(formattedLocation);
+
+var bioPic = bio.bioPic;
+var formattedBioPic = HTMLbioPic.replace("%data%", bioPic);
+$("#header").append(formattedBioPic);
+
+var welcomeMessage = bio.welcomeMessage;
+var formattedWelcomeMessage = HTMLWelcomeMsg.replace("%data%", welcomeMessage);
+$("#header").append(formattedWelcomeMessage);
+
+//Skills
+$("#header").append(HTMLskillsStart);
+for(skill in bio.skills){
+
+	var formattedSkill = HTMLskills.replace("%data%",bio.skills[skill]);
+	$("#skills").append(formattedSkill);
+
+};
+
+//Another things.
+var work = {
+"jobs":[
+{
+"employer":"WIND", 
+"title": "Operation Analyst",
+"location":"Santiago",
+"dates":"22/05/2014 - 22/07/2014",
+"description":"Analyze if the network is working in the optimal conditions."
+},
+{
+"employer":"Nintendo",
+"title":"Junior Developer",
+"location":"USA",
+"dates":"Future",
+"description":"Designed and executed probes in the video game department."
+}]
+};
+
+var projects = {
+"project":[
+{
+"title":"SEDILAB",
+"dates":2014,
+"description":"A web platform for students",
+"images":["www.example1.com","www.example2.com"]
+}]
+};
 
 var education = {
 	"schools": [
@@ -41,8 +103,8 @@ var education = {
     {
     	"name":"PUCMM",
     	"city":"Santiago",
-    	"mayor":"Telematic"
-    	"degree":"Graduate"
+    	"mayor":"Telematic",
+    	"degree":"Graduate",
     	"dates":2014
     }
 	],
@@ -55,12 +117,17 @@ var education = {
 	]
 };
 
-
-//$("#main").append(work["position"]);
-//$("#main").append(education.name);
-//$("#main").append(bio.name);
-$("#header").append(formattedName);
-$("#header").append(formattedRole);
+for(job in work.jobs){
+$("#workExperience").append(HTMLworkStart); 
+var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+var formattedEmployerTitle = formattedEmployer + formattedTitle;
+$(".work-entry:last").append(formattedEmployerTitle);
+var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
+var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+$(".work-entry:last").append(formattedDates);
+$(".work-entry:last").append(formattedDescription);
+};
 
 
 
