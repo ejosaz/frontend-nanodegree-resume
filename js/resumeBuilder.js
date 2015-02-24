@@ -7,10 +7,10 @@ var bio = {
 		"email" : "ejosaz1@gmail.com",
 		"github": "ejosaz",
 		"twitter": "ejosaz",
-		"location":" Santiago"
+		"location":" Santiago, Dominican Republic"
 	},
 	"welcomeMessage": "Life is about Simplicity",
-	"skills": ["Player", "Sleeper","Hardwork", "Dreamer"],
+	"skills": ["Player", "Sleeper","Hardwork", "Delivering Things"],
 	"bioPic" : "images/rosalina.png"
 };
 
@@ -21,13 +21,14 @@ var formattedName = HTMLheaderName.replace("%data%",name);
 var role = bio.role;
 var formattedRole = HTMLheaderRole.replace("%data%",role);
 
+$("#header").prepend(internationalizeButton);
 $("#header").prepend(formattedRole);
 $("#header").prepend(formattedName);
-
 
 var mobile = bio.contacts.mobile;
 var formattedMobile = HTMLmobile.replace("%data%", mobile);
 $("#topContacts").append(formattedMobile);
+$("#footerContacts").append(formattedMobile);
 
 var email = bio.contacts.email;
 var formattedEmail = HTMLemail.replace("%data%", email);
@@ -68,26 +69,26 @@ var work = {
 {
 "employer":"WIND", 
 "title": "Operation Analyst",
-"location":"Santiago",
+"location":"Santiago, Dominican Republic",
 "dates":"22/05/2014 - 22/07/2014",
 "description":"Analyze if the network is working in the optimal conditions."
 },
 {
 "employer":"Nintendo",
 "title":"Junior Developer",
-"location":"USA",
+"location":"New York, USA",
 "dates":"Future",
 "description":"Designed and executed probes in the video game department."
 }]
 };
 
 var projects = {
-"project":[
+"projects":[
 {
 "title":"SEDILAB",
 "dates":2014,
 "description":"A web platform for students",
-"images":["www.example1.com","www.example2.com"]
+"images":"images/pikachu.jpg"
 }]
 };
 
@@ -95,14 +96,15 @@ var education = {
 	"schools": [
 	{
 	"name":"San Luis Gonzaga",
-	"city": "Salcedo",
-	"minors": "Bachelor",
+	"location": "Salcedo, Dominican Republic",
+	"mayor": "Bachelor",
+	"degree": "Graduate",
 	"dates":2010
 
     },
     {
     	"name":"PUCMM",
-    	"city":"Santiago",
+    	"location":"Santiago de los Caballeros, Dominican Republic",
     	"mayor":"Telematic",
     	"degree":"Graduate",
     	"dates":2014
@@ -117,17 +119,75 @@ var education = {
 	]
 };
 
-for(job in work.jobs){
-$("#workExperience").append(HTMLworkStart); 
-var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
-var formattedEmployerTitle = formattedEmployer + formattedTitle;
-$(".work-entry:last").append(formattedEmployerTitle);
-var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
-var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
-$(".work-entry:last").append(formattedDates);
-$(".work-entry:last").append(formattedDescription);
+
+
+//Funciones. 
+function displayEducation(){
+	for(school in education.schools){
+		$("#education").append(HTMLschoolStart); 
+		var formattedName = HTMLschoolName.replace("%data%", education.schools[school].name);
+		$(".education-entry:last").append(formattedName);
+        var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree)
+        $(".education-entry:last").append(formattedDegree);
+        var formattedDates = HTMLschoolDates.replace("%data%", education.schools[school].dates)
+        $(".education-entry:last").append(formattedDates);
+        var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location)
+        $(".education-entry:last").append(formattedLocation);
+         var formattedMajor = HTMLschoolMajor.replace("%data%", education.schools[school].mayor)
+        $(".education-entry:last").append(formattedMajor);
+
+
+		};
 };
 
+displayEducation();
+
+function displayWork(){
+	for(job in work.jobs){
+		$("#workExperience").append(HTMLworkStart); 
+		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+		var formattedEmployerTitle = formattedEmployer + formattedTitle;
+		$(".work-entry:last").append(formattedEmployerTitle);
+		var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
+		var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+		$(".work-entry:last").append(formattedDates);
+		$(".work-entry:last").append(formattedDescription);
+		};
+};
+
+displayWork();
+
+//Encapsulacion
+projects.display = function(){
+	for(project in projects.projects){
+		$("#projects").append(HTMLprojectStart);
+
+		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+		$(".project-entry:last").append(formattedTitle);
+        
+		var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+		$(".project-entry:last").append(formattedDates);
+        
+		var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+		$(".project-entry:last").append(formattedDescription);
+        
+		if (projects.projects[project].images.lenght > 0 ){
+			for (image in projects.projects[project].images){
+				var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+				$(".project-entry:last").append(formattedImage);
+			}
+		}
+		else{
+			var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images);
+		    $(".project-entry:last").append(formattedImage);
+
+		}
+
+	}
+};
+
+projects.display();
 
 
+$("#mapDiv").append(googleMap);
